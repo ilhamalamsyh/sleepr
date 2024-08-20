@@ -1,0 +1,19 @@
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: pnpm run start:dev reservations
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/sleep
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    env_file:
+      - .env
+  mongo:
+    image: mongo

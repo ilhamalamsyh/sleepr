@@ -11,10 +11,10 @@ services:
       - ~/app/sleepr:/usr/src/sleep
     depends_on:
       - mongo
-    environment:
-      - MONGODB_URI=${MONGODB_URI}
+    # environment:
+    #   - MONGODB_URI=${MONGODB_URI}
     env_file:
-      - .env
+      - ./apps/reservations/.env
   auth:
     build:
       context: .
@@ -27,10 +27,12 @@ services:
       - ~/app/sleepr:/usr/src/sleep
     depends_on:
       - mongo
-    environment:
-      - MONGODB_URI=${MONGODB_URI}
+    # environment:
+    #   - MONGODB_URI=${MONGODB_URI}
+    #   - JWT_SECRET=${JWT_SECRET}
+    #   - JWT_EXPIRATION=${JWT_EXPIRATION}
     env_file:
-      - .env
+      - ./apps/auth/.env
   mongo:
     image: mongo
     # volumes:

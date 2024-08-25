@@ -8,7 +8,23 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/sleep
+      - ~/app/sleepr:/usr/src/sleep
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    env_file:
+      - .env
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    ports:
+      - '3001:3001'
+    volumes:
+      - ~/app/sleepr:/usr/src/sleep
     depends_on:
       - mongo
     environment:
@@ -17,3 +33,5 @@ services:
       - .env
   mongo:
     image: mongo
+    # volumes:
+    # - ~/data/db:/data/db

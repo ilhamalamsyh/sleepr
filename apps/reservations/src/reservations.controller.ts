@@ -27,7 +27,6 @@ export class ReservationsController {
       createReservationDto,
       user._id,
     );
-    console.log('_user: ', _user);
     return _user;
   }
 

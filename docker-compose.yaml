@@ -33,6 +33,20 @@ services:
     #   - JWT_EXPIRATION=${JWT_EXPIRATION}
     env_file:
       - ./apps/auth/.env
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: pnpm run start:dev payments
+    ports:
+      - '3003:3003'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongo
+    env_file:
+      - ./apps/payments/.env
   mongo:
     image: mongo
     # volumes:
